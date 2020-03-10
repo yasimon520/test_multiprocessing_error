@@ -21,10 +21,12 @@
 
 """
 import subprocess
+import os
 import time
 
 def main(args):
 	
+	print(os.getpid())
 	"""
 	#надо захватить вывод с помощью capture_output
 	p1 = subprocess.Popen(["ls", "-l"], capture_output = True, text = True)
@@ -37,11 +39,18 @@ def main(args):
 	## ... аргумент в функцию text = True
 	print(p1.stdout)
 	"""
+	#i с diagsalvom vse rabotaet
+	#p2 = subprocess.Popen("./diagslave", stdout=subprocess.PIPE, shell=True)
 	
-	p2 = subprocess.Popen("ls", stdout=subprocess.PIPE)
-    
-    print("\n*****************\n")
-    print(p2.stdout.read(1))
+	p2 = subprocess.Popen("ping www.yandex.ru", stdout=subprocess.PIPE, shell=True)
+
+	
+	print(os.getpid())
+	print(os.getppid()) 
+	# нормально все 
+	print("\n*****************\n")
+	while p2.poll() is None:
+		print(p2.stdout.readline())
 
 
 if __name__ == '__main__':
